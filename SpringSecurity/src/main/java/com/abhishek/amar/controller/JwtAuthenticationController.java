@@ -16,7 +16,7 @@ import com.abhishek.amar.request.JwtRequest;
 import com.abhishek.amar.response.JwtResponse;
 import com.abhishek.amar.service.JwtUserDetailsService; 
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class JwtAuthenticationController {
 

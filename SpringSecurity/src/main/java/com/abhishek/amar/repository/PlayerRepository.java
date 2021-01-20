@@ -23,6 +23,9 @@ public interface PlayerRepository extends JpaRepository<PlayerEntity, Integer> {
 
 	void deletePlayerById(Integer id);
 	
+	
 	@Query(value="select * from players p  order by p.id desc offset ?1 limit ?2 ",nativeQuery = true)
 	List<PlayerEntity> findAllByLimitAndOffSet(Integer offSet,Integer limit);
+	 
+	//List<PlayerEntity> findAllByLimitAndOffSet(Integer limit,Integer offset);
 }

@@ -23,9 +23,11 @@ import com.abhishek.amar.entity.PlayerEntity;
 import com.abhishek.amar.enums.ProjectModule;
 import com.abhishek.amar.exceptionhandler.PlayerNotFoundException;
 import com.abhishek.amar.response.ApiResponse;
+import com.abhishek.amar.service.DbDetailsService;
 import com.abhishek.amar.service.PlayerService;
+import com.abhishek.amar.util.UiUtils;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/player")
 public class PlayerController {
@@ -59,6 +61,9 @@ public class PlayerController {
 
 	@Value("${player.updated}")
 	private String playerUpdated;
+	
+	@Autowired
+	private DbDetailsService dbService;
 
 	@PostMapping
 	public ResponseEntity<Object> savePlayerDetails(@RequestBody PlayerEntity playerEntity) {
@@ -150,5 +155,16 @@ public class PlayerController {
 			response.setModuleAccess(ProjectModule.values());
 			return new ResponseEntity<>(response, HttpStatus.OK);
 		}
+	}
+	
+	@GetMapping("/db/all")
+	private ResponseEntity<ApiResponse> getAllDbDetails() {
+		return new ResponseEntity<>(new ApiResponse(HttpStatus.OK, "", dbService.getAllDB(), ""), HttpStatus.OK);
+	}
+	
+	@GetMapping("/ui/json")
+	public ResponseEntity<Object> getUiJson() {
+		logger.info(":: inside getUiJson method :: /ui/json");
+		return new ResponseEntity<>(UiUtils.showUITemplate(), HttpStatus.OK);
 	}
 }
